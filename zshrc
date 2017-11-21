@@ -1,79 +1,37 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# oh-my-zsh
 ZSH_THEME="robbyrussell"
 
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
-alias zshupdate="source ~/.zshrc"
-# turn screen off
-alias m='xset dpms force off'
-# vi is vim
-alias vi=vim
-
-export KEYTIMEOUT=1
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Uncomment this to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
+DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+plugins=(git git-extras vi-mode archlinux systemd python history-substring-search
+         pip extract fasd virtualenvwrapper tmux sudo)
 
-# Uncomment following line if you want to  shown in the command execution time stamp 
-# in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
-# yyyy-mm-dd
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-extras git-fast cp rsync python django themes colorize fasd extract pip pass 
-         systemd virtualenv virtualenvwrapper autoenv web-search sudo heroku common-aliases bower
-         history-substring-search command-not-found archlinux vundle dirhistory fabric terminator) 
-
+export ZSH=/home/ashwath/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+export EDITOR='vim'
+export PATH=$HOME/.local/bin:$PATH
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-# export MANPATH="/usr/local/man:$MANPATH"
+export KEYTIMEOUT=1
+export DISABLE_AUTO_TITLE='true'
 
-# # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='vim'
-fi
+# vi mode
+bindkey -v
+bindkey '^[[Z' reverse-menu-complete
 
-# Compilation flags
-export ARCHFLAGS="-arch x86_64"
+alias zshconfig="vim ~/.zshrc"
+alias vimconfig="vim ~/.vimrc"
+alias sshconfig="vim ~/.ssh/config"
+alias tmuxconfig="vim ~/.tmux.conf"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+alias zshupdate="source ~/.zshrc"
 
-# python startup script
-#export PYTHONSTARTUP=~/.pythonstartup.py
+alias p="ps -ef | grep"
+alias k="kill -9"
+
+alias vi="vim"
+alias v="f -e vim"
+
+alias t="tmux"
+alias tm="tmuxp load"

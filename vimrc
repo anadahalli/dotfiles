@@ -1,260 +1,235 @@
-"------------------------------------------------------------
-"
 " Vundle
-
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
+set nocompatible
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
-" Keep Plugin commands between vundle#begin/end.
-" Git interface for vim
 Plugin 'tpope/vim-fugitive'
-" vim repeat
 Plugin 'tpope/vim-repeat'
-" vim surround
 Plugin 'tpope/vim-surround'
-" vim speeddating
-Plugin 'tpope/vim-speeddating'
-" vim commentary
 Plugin 'tpope/vim-commentary'
-" You complete me
-" Plugin 'valloric/youcompleteme'
-" Syntactic
 Plugin 'scrooloose/syntastic'
-" Solarized theme
-Plugin 'altercation/vim-colors-solarized'
-" Powerline
-Plugin 'Lokaltog/powerline'
-" python indent
 Plugin 'hynek/vim-python-pep8-indent'
-" Align tabular
-Plugin 'godlygeek/tabular'
-" Nginx syntax
-Plugin 'evanmiller/nginx-vim-syntax'
-" NERD Tree
 Plugin 'scrooloose/nerdtree'
-" vim airline
-"Plugin 'bling/vim-airline'
-" vim lightline
-Plugin 'itchyny/lightline.vim'
-" landscape colorscheme
-Plugin 'itchyny/landscape.vim'
-" Gundo
 Plugin 'sjl/gundo.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'mhinz/vim-startify'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'airblade/vim-gitgutter'
+call vundle#end()
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList          - list configured plugins
-" :PluginInstall(!)    - install (update) plugins
-" :PluginSearch(!) foo - search (or refresh cache first) for foo
-" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" change the leader to be a comma
+let mapleader=','
 
-"------------------------------------------------------------
+" colorscheme
+colorscheme znake
 
-" ==========================================================
-" Shortcuts
-" ==========================================================
-let mapleader="," " change the leader to be a comma vs slash
+" syntax highlighing
+syntax on
 
-" sudo write this
-cmap W! w !sudo tee % >/dev/null
+" try to detect filetypes
+filetype on
+
+" enable loading indent file for filetype
+filetype plugin indent on
+
+" display line numbers
+set number
+" we are using dark background in vim
+set background=dark
+" show title in console title bar
+set title
+" menu completion in command mode on <tab>
+set wildmenu
+" <tab> cycles between all matching choices.
+set wildmode=full
+" ignore these files when completing
+set wildignore+=*.o,*.obj,.git,*.pyc
+
+" have a line indicate the cursor location
+" set cursorline
+" Keep 3 context lines above and below the cursor
+set scrolloff=3
+" Allow backspacing over autoindent, EOL, and BOL
+set backspace=2
+" Briefly jump to a paren once it's balanced
+" set noshowmatch
+" Wrap text
+set wrap
+" lines are automatically wrapped after 80 columns
+set textwidth=80
+" don't wrap text in the middle of a word
+set linebreak
+" always set autoindenting on
+set autoindent
+" use smart indent if there is no indent file
+set smartindent
+" <tab> inserts 4 spaces
+set tabstop=4
+" And an indent level is 4 spaces wide.
+set shiftwidth=4
+" <backspace> over an autoindent deletes all spaces.
+set softtabstop=4
+" Use spaces, not tabs, for autoindent/tab key.
+set expandtab
+" rounds indent to a multiple of shiftwidth
+set shiftround
+" Setting text and comment formatting to auto
+set formatoptions=tcroql
+" turn off folding
+" set nofoldenable
+" highlight column 80 (where words will wrap)
+" set colorcolumn=80
+
+" Don't bother me about changed buffers
+set autowriteall
+" Don't automatically re-read changed files.
+set noautoread
+" Allow vim options to be embedded in files;
+set modeline
+" they must be within the first or last 5 lines.
+set modelines=5
+
+" Disable all bells. I hate ringing/flashing.
+set vb t_vb=
+" Show incomplete normal mode commands as I type.
+set showcmd
+" : commands always print changed line count.
+set report=0
+" Use [+]/[RO]/[w] for modified/readonly/written.
+set shortmess+=a
+" Show some info, even without statuslines.
+set ruler
+" Always show statusline, even if only 1 window.
+set laststatus=2
+
+" Default to using case insensitive searches,
+set ignorecase
+" unless uppercase letters are used in the regex.
+set smartcase
+" Highlight searches by default.
+" set hlsearch
+" Incrementally search while typing a /regex
+set incsearch
+
+" terminal color 256
+set t_Co=256
+" fix delay leaving insert mode
+set ttimeoutlen=10
+" dont show modes
+set noshowmode
+" faster update time
+set updatetime=250
+
+" airline settings
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 0
+let g:airline_theme='minimalist'
+let g:airline_skip_empty_sections = 1
+let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%2v'])
+
+" highlight colors
+highlight VertSplit cterm=none ctermbg=none
+highlight LineNr term=none ctermfg=darkgrey
+highlight Search cterm=none ctermfg=black ctermbg=green
+highlight Visual cterm=none ctermfg=black ctermbg=darkgrey
+highlight Pmenu ctermfg=black ctermbg=darkgrey
+highlight PmenuSel ctermfg=black ctermbg=green
+highlight StatusLine cterm=none ctermfg=white ctermbg=235
+highlight WildMenu cterm=none ctermfg=green ctermbg=235
+highlight CursorLine cterm=bold ctermfg=green ctermbg=black
+highlight CursorLineNr cterm=bold ctermfg=green
+highlight MatchParen cterm=none ctermbg=black
+
+" undo files
+if exists('+undofile')
+  if isdirectory($HOME . '/.vim/undo') == 0
+    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  endif
+  set undodir=~/.vim/undo//
+  set undofile
+endif
+
+" filetype indentaions
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype css setlocal ts=2 sw=2 expandtab
+autocmd Filetype htmldjango setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
+
+" fugitive
+map <leader>gs :Gstatus<CR>
+map <leader>gd :Gdiff<CR>
+map <leader>gc :Gcommit<CR>
+map <leader>gb :Gblame<CR>
+map <leader>gl :Glog<CR>
+
+" nerdtree
+let g:NERDTreeWinPos = 'right'
+map <leader>f :NERDTreeToggle<CR>
+
+" gundo
+let g:gundo_right = 1
+if has('python3')
+    let g:gundo_prefer_python3 = 1
+endif
+map <leader>g :GundoToggle<CR>
+
+" git gutter
+let g:gitgutter_enabled = 0
+let g:gitgutter_map_keys = 0
+map <leader>s :GitGutterToggle<CR>
 
 " Reload Vimrc
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+map <silent> <leader>r :source ~/.vimrc<CR>:echo 'vimrc reloaded'<CR>
+
+" set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+" map jj to <esc> in insert mode
+inoremap jj <ESC>
+
+" use <ctrl> hjkl to move between buffers
+map <c-j> :bp <CR>
+map <c-k> :bn <CR>
+map <c-h> :bfirst <CR>
+map <c-l> :blast <CR>
+
+" close buffer
+map <leader>d :bd <CR>
+
+" use <leader>hjkl to move between splits
+map <leader>h <c-w>h
+map <leader>j <c-w>j
+map <leader>k <c-w>k
+map <leader>l <c-w>l
 
 " open/close the quickfix window
 nmap <leader>c :copen<CR>
 nmap <leader>cc :cclose<CR>
 
-" for when we forget to use sudo to open/edit a file
-cmap w!! w !sudo tee % >/dev/null
-
-" ctrl-jklm changes to that split
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
-" and lets make these all work in insert mode too ( <C-O> makes next cmd
-" happen as if in command mode )
-imap <C-W> <C-O><C-W>
-
-" Load the Gundo window
-map <leader>g :GundoToggle<CR>
-
-" ==========================================================
-" Basic Settings
-" ==========================================================
-syntax on " syntax highlighing
-filetype on " try to detect filetypes
-filetype plugin indent on " enable loading indent file for filetype
-set number " Display line numbers
-set background=dark " We are using dark background in vim
-set title " show title in console title bar
-set wildmenu " Menu completion in command mode on <Tab>
-set wildmode=full " <Tab> cycles between all matching choices.
-
-" don't bell or blink
-set noerrorbells
-set vb t_vb=
-
-" Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc
-set wildignore+=eggs/**
-set wildignore+=*.egg-info/**
-
-" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
-" Disable the colorcolumn when switching modes. Make sure this is the
-" first autocmd for the filetype here
-"autocmd FileType * setlocal colorcolumn=0
-
-""" Moving Around/Editing
-" set cursorline " have a line indicate the cursor location
-set ruler " show the cursor position all the time
-set nostartofline " Avoid moving cursor to BOL when jumping around
-set virtualedit=block " Let cursor move past the last char in <C-v> mode
-set scrolloff=3 " Keep 3 context lines above and below the cursor
-set backspace=2 " Allow backspacing over autoindent, EOL, and BOL
-set showmatch " Briefly jump to a paren once it's balanced
-set wrap " Wrap text
-set linebreak " don't wrap textin the middle of a word
-set autoindent " always set autoindenting on
-set smartindent " use smart indent if there is no indent file
-set tabstop=4 " <tab> inserts 4 spaces
-set shiftwidth=4 " And an indent level is 4 spaces wide.
-set softtabstop=4 " <BS> over an autoindent deletes all spaces.
-set expandtab " Use spaces, not tabs, for autoindent/tab key.
-set shiftround " rounds indent to a multiple of shiftwidth
-set formatoptions=tcroql " Setting text and comment formatting to auto
-set textwidth=80 " lines are automatically wrapped after 80 columns
-set nofoldenable " turn off folding
-" set colorcolumn=80 " highlight column 80 (where words will wrap)
-
-"""" Reading/Writing
-set autowriteall " Don't bother me about changed buffers
-set noautoread " Don't automatically re-read changed files.
-set modeline " Allow vim options to be embedded in files;
-set modelines=5 " they must be within the first or last 5 lines.
-
-"""" Messages, Info, Status
-set ls=2 " allways show status line
-set vb t_vb= " Disable all bells. I hate ringing/flashing.
-set showcmd " Show incomplete normal mode commands as I type.
-set report=0 " : commands always print changed line count.
-set shortmess+=a " Use [+]/[RO]/[w] for modified/readonly/written.
-set ruler " Show some info, even without statuslines.
-set laststatus=2 " Always show statusline, even if only 1 window.
-
-""" Searching and Patterns
-set ignorecase " Default to using case insensitive searches,
-set smartcase " unless uppercase letters are used in the regex.
-set hlsearch " Highlight searches by default.
-set incsearch " Incrementally search while typing a /regex
-
-" Paste from clipboard
-map <xeader>p "+p
+" clipboard copy and paste
+map <leader>p "+p
 map <leader>y "+y
 map <leader>x "+x
 
-" Quit window on <leader>q
+" paste mode
+map <leader>pp :setlocal paste!<cr>
+
+" Save buffer
+map <leader>w :w<CR>
+inoremap <leader>w <C-c>:w<cr>
+
+" Quit window
 nnoremap <leader>q :q<CR>
 
 " hide matches on <leader>space
-nnoremap <leader><space> :nohlsearch<cr>
+nnoremap <leader>z :nohlsearch<cr>
 
 " Remove trailing whitespace on <leader>S
 nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
-" Select the item in the list with enter
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-map <C-space> :bn <CR>
-map <C-M-space> :bp <CR>
-
-"colorscheme elflord
-set background=dark
-
 " Automatically add breakpoint for PDB
-nnoremap <leader>P Oimport pdb; pdb.set_trace()
-
-if &ft == "scala"
-    set tabstop=2
-    set shiftwidth=2
-    set softtabstop=2
-endif
-
-if exists("+undofile")
-" undofile - This allows you to use undos after exiting and restarting
-" This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
-" :help undo-persistence
-" This is only present in 7.3+
-  if isdirectory($HOME . '/.vim/undo') == 0
-    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
-  endif
-  set undodir=./.vim-undo//
-  set undodir+=~/.vim/undo//
-  set undofile
-endif
-hi DiffText gui=underline guibg=red guifg=black
-
-set guifont=Sauce\ Code\ Powerline:h14
-
-" ==========================================================
-"
-"
-
-nnoremap <leader>w :wq<CR>
-nnoremap <leader>s :w<CR>
-
-set pastetoggle=<F10>
-
-nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
-
-map <F2> :NERDTreeToggle<CR>
-
-set t_Co=256
-
-let g:lightline = {
-    \ 'colorscheme': 'wombat',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
-    \ },
-    \ 'component': {
-    \   'lineinfo': ' %3l:%-2v',
-    \ },
-    \ 'component_function': {
-    \   'readonly': 'MyReadonly',
-    \   'fugitive': 'MyFugitive'
-    \ },
-    \ 'separator': { 'left': '', 'right': '' },
-    \ 'subseparator': { 'left': '', 'right': '' }
-    \ }
-function! MyReadonly()
-    return &readonly ? '' : ''
-endfunction
-function! MyFugitive()
-    if exists("*fugitive#head")
-        let _ = fugitive#head()
-        return strlen(_) ? ''._ : ''
-    endif
-    return ''
-endfunction
+nnoremap <leader>b Oimport pdb; pdb.set_trace()
