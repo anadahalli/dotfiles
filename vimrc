@@ -111,7 +111,7 @@ set ignorecase
 " unless uppercase letters are used in the regex.
 set smartcase
 " Highlight searches by default.
-" set hlsearch
+set hlsearch
 " Incrementally search while typing a /regex
 set incsearch
 
@@ -126,10 +126,10 @@ set updatetime=250
 
 " airline settings
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 0
-let g:airline_theme='minimalist'
+let g:airline_theme='term'
 let g:airline_skip_empty_sections = 1
 let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%2v'])
+let g:airline_mode_map = {'n': 'N', 'i': 'I', 'c': 'C', 'v': 'V', 'V': 'V'}
 
 " highlight colors
 highlight VertSplit cterm=none ctermbg=none
@@ -180,16 +180,16 @@ map <leader>g :GundoToggle<CR>
 " git gutter
 let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 0
-map <leader>s :GitGutterToggle<CR>
+map <leader>a :GitGutterToggle<CR>
 
 " Reload Vimrc
 map <silent> <leader>r :source ~/.vimrc<CR>:echo 'vimrc reloaded'<CR>
 
 " set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
+map <leader>. :lcd %:p:h<CR>
 
 " map jj to <esc> in insert mode
-inoremap jj <ESC>
+imap jj <ESC>
 
 " use <ctrl> hjkl to move between buffers
 map <c-j> :bp <CR>
@@ -217,19 +217,27 @@ map <leader>x "+x
 
 " paste mode
 map <leader>pp :setlocal paste!<cr>
+imap <leader>pp :setlocal paste!<cr>
 
-" Save buffer
+" save buffer
 map <leader>w :w<CR>
-inoremap <leader>w <C-c>:w<cr>
+imap <leader>w <C-c>:w<cr>
 
-" Quit window
-nnoremap <leader>q :q<CR>
+" quit window
+map <leader>q :q<CR>
+
+" save and quit
+map <leader>wq :wq<CR>
+imap <leader>wq <C-c>:wq<cr>
+
+" spell check toggle
+map <leader>s :setlocal spell!<cr>
 
 " hide matches on <leader>space
-nnoremap <leader>z :nohlsearch<cr>
+map <leader>z :nohlsearch<cr>
 
-" Remove trailing whitespace on <leader>S
-nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
+" remove trailing whitespace on <leader>S
+map <leader>x :%s/\s\+$//<cr>
 
 " Automatically add breakpoint for PDB
-nnoremap <leader>b Oimport pdb; pdb.set_trace()
+map <leader>b Oimport pdb; pdb.set_trace()
