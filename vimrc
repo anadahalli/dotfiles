@@ -19,6 +19,7 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'nathanaelkane/vim-indent-guides'
 call vundle#end()
 
 " change the leader to be a comma
@@ -26,6 +27,7 @@ let mapleader=','
 
 " colorscheme
 colorscheme znake
+" colorscheme carrot
 
 " syntax highlighing
 syntax on
@@ -142,7 +144,9 @@ highlight StatusLine cterm=none ctermfg=white ctermbg=235
 highlight WildMenu cterm=none ctermfg=green ctermbg=235
 highlight CursorLine cterm=bold ctermfg=green ctermbg=black
 highlight CursorLineNr cterm=bold ctermfg=green
-highlight MatchParen cterm=none ctermbg=black
+highlight MatchParen cterm=none ctermbg=darkgrey
+highlight IndentGuidesOdd ctermbg=232
+highlight IndentGuidesEven ctermbg=233
 
 " undo files
 if exists('+undofile')
@@ -154,10 +158,11 @@ if exists('+undofile')
 endif
 
 " filetype indentaions
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-autocmd Filetype css setlocal ts=2 sw=2 expandtab
-autocmd Filetype htmldjango setlocal ts=2 sw=2 expandtab
-autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
+autocmd Filetype html setlocal ts=2 sts=0 sw=2 expandtab
+autocmd Filetype css setlocal ts=2 sts=0 sw=2 expandtab
+autocmd Filetype htmldjango setlocal ts=2 sts=0 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=2 sts=0 sw=2 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " fugitive
 map <leader>gs :Gstatus<CR>
@@ -181,6 +186,11 @@ map <leader>g :GundoToggle<CR>
 let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 0
 map <leader>a :GitGutterToggle<CR>
+
+" vim indent guide
+map <leader>i :IndentGuidesToggle<CR>
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_start_level = 2
 
 " Reload Vimrc
 map <silent> <leader>r :source ~/.vimrc<CR>:echo 'vimrc reloaded'<CR>
@@ -237,7 +247,7 @@ map <leader>s :setlocal spell!<cr>
 map <leader>z :nohlsearch<cr>
 
 " remove trailing whitespace on <leader>S
-map <leader>x :%s/\s\+$//<cr>
+map <leader>S :%s/\s\+$//<cr>
 
 " Automatically add breakpoint for PDB
 map <leader>b Oimport pdb; pdb.set_trace()
